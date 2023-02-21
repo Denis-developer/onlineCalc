@@ -1,0 +1,36 @@
+@import "base/mixins";
+@import "base/variables";
+
+
+@import "blocks/main";
+@import "blocks/select";
+@import "blocks/calc";
+@import "blocks/articles";
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: $black;
+}
+
+.container {
+    width: 100%;
+    max-width: 1340px;
+    padding: 0px 40px;
+    margin: 0 auto;
+}
+
+.text {
+    font-size: 14px;
+    color: $black;
+    line-height: 140%;
+    font-weight: 500;
+}
+
+
+@import "blocks/media";

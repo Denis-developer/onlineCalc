@@ -1,0 +1,120 @@
+.select {
+    width: 100%;
+    position: relative;
+
+    &-header {
+        position: relative;
+        display: flex;
+        cursor: pointer;
+        height: 60px;
+        background-color: $dark-blue;
+        border-radius: 100px;
+        padding: 10px 0px;
+        padding-left: 20px;
+        padding-right: 15px;
+        font-size: 24px;
+        font-weight: 400;
+        color: $white;
+        z-index: 3;
+
+        &__icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            height: 100%;
+            margin-left: auto;
+            transition: all 0.4s;
+
+            svg {
+                transition: all 0.4s;
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: -15px;
+                top: 0px;
+                height: 100%;
+                width: 1px;
+                background-color: $light-white;
+            }
+
+            &_active {
+                svg {
+                    transform: rotate(180deg);
+                }
+
+            }
+        }
+
+        span {
+            align-self: center;
+        }
+    }
+
+    &-body {
+        position: absolute;
+        right: 0;
+        top: 115%;
+        border: 1px solid #DDDDDD;
+        background-color: $white;
+        border-top: none;
+        overflow: hidden;
+        border-radius: 15px;
+        opacity: 0;
+        visibility: hidden;
+        filter: drop-shadow(0px 12px 24px rgba(0, 0, 0, 0.07));
+        z-index: 2;
+        transition: all 0.4s;
+
+        &__scroll {
+            padding: 10px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            overflow-y: auto;
+            max-height: 325px;
+            width: 115px;
+
+            &::-webkit-scrollbar {
+                width: 2px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: $blue;
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: #ddd;
+            }
+        }
+
+        &__item {
+            font-size: 18px;
+            font-weight: 500;
+            color: $light-black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 36px;
+            cursor: pointer;
+            border-radius: 7px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+
+            &:hover {
+                background-color: #f7f7f7;
+                color: $blue;
+            }
+        }
+    }
+
+    &.is-active {
+        .select-body {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
