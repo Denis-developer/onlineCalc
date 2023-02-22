@@ -15,45 +15,57 @@
 
     &__tab {
         border-radius: 20px 20px 0px 0px;
-        padding: 15px 0px;
+        padding: 15px 5px;
         text-align: center;
         cursor: pointer;
         font-size: 18px;
         font-weight: 500;
         color: $light-black;
         line-height: 22px;
-        transition: all 0.2s;
-
+        transition: background-color 0.2s;
+        &:hover {
+            color: $black;
+            font-weight: 700;
+        }
         &.active {
             background-color: $blue;
             color: $white;
             font-size: 24px;
             font-weight: 700;
         }
-    }
 
-    &-content {
-        display: none;
-        transition: all 0.5s;
-
-        &.active {
-            display: block;
-        }
     }
 
     &-option {
+        width: 100%;
+        min-width: 160px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &:first-child {
+            max-width: 260px;
+        }
+        &:nth-child(3) {
+            .select-body {
+                z-index: 7;
+            }
+        }
+        &:nth-child(4) {
+            .select-body {
+                z-index: 6;
+            }
+        }
         &__wrapper {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
             gap: 22px;
-            padding: 40px;
         }
 
         &__btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            flex-shrink: 0;
+            width: 333px;
             height: 60px;
             align-self: flex-end;
             border-radius: 100px;
@@ -98,6 +110,161 @@
             font-weight: 500;
             margin-bottom: 10px;
             color: $white;
+        }
+    }
+    &-account {
+        width: 100%;
+    }
+    &-estimation {
+        color: $white;
+        display: flex;
+        align-items: center;
+        padding: 50px 130px;
+        background-color: $dark-blue;
+        border-radius: 20px;
+        display: none;
+        overflow-x: auto;
+        &__wrapper {
+            width: 100%;
+        }
+        &__title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        &__text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 18px;
+            position: relative;
+            span {
+                font-weight: 700;
+                margin-left: 20px;
+            }
+            &:nth-child(1), &:nth-child(2) {
+                padding-left: 21px;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    height: 10px;
+                    width: 10px;
+                    background-color: $white;
+                    border-radius: 50%;
+                }
+            }
+            &:nth-child(2) {
+                &::before {
+                    background-color: $darkest-blue;
+                }
+            }
+        }
+    }
+    &-diagram {
+        width: 300px;
+        height: 300px;
+        margin-right: 75px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        position: relative;
+        display: grid;
+        place-items: center;
+        &::before {
+            content: '';
+            position: absolute;
+            height: 80%;
+            width: 80%;
+            background-color: $dark-blue;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        &__total {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            span {
+                font-size: 16px;
+                font-weight: 500;
+                display: block;
+            }
+        }
+        &__value {
+            font-size: 30px;
+            font-weight: 700;
+        }
+    }
+    &-content {
+        display: none;
+        transition: all 0.5s;
+        padding: 40px;
+
+        &.active {
+            display: block;
+        }
+        &.account {
+            .calc-estimation {
+                display: flex;
+            }
+            .calc-option__wrapper {
+                margin-bottom: 24px;
+            }
+        }
+        &.mortgage {
+            .calc-option__btn{
+                max-width: 260px;
+            }
+            .calc-option{
+                &:nth-child(1) {
+                    width: 260px;
+                    flex-shrink: 0;
+                }
+                &:nth-child(2) {
+                    width: 215px;
+                    flex-shrink: 0;
+                }
+            }
+        }
+        &.secured {
+            .calc-option__btn{
+                max-width: 250px;
+            }
+            .calc-option{
+                &:nth-child(1) {
+                    width: 245px;
+                    flex-shrink: 0;
+                }
+                &:nth-child(2) {
+                    width: 265px;
+                    flex-shrink: 0;
+                }
+            }
+            .select-body__scroll {
+                width: 210px;
+            }
+        }
+    }
+    &__title_mob {
+        color: $white;
+        text-align: center;
+        position: relative;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        display: none;
+        &::before {
+            content: '';
+            height: 1px;
+            width: 100%;
+            background: $light-white;
+            position: absolute;
+            top: -30px;
+            left: 0;
+        }
+        .calc-estimation__title {
+            margin-bottom: 0;
         }
     }
 }

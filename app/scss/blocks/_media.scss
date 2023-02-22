@@ -1,36 +1,103 @@
 @media (max-width: 1300px) {
-    .main-contact, .main-textBlock {
+
+    .main-contact,
+    .main-textBlock {
         padding: 30px;
+    }
+
+    .calc-content.mortgage .calc-option__btn,
+    .calc-content.secured .calc-option__btn {
+        width: 100%;
+        min-width: 180px;
+        flex-shrink: 1;
+    }
+
+    .calc-option:nth-child(4) {
+        min-width: 130px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .calc-option__btn {
+        width: 100%;
+        min-width: 180px;
+        flex-shrink: 1;
+    }
+
+    .calc__title_mob {
+        display: block;
+    }
+
+    .calc__tab.active {
+        font-size: 20px;
+    }
+
+    .calc-option__wrapper {
+        flex-direction: column;
+    }
+
+    .calc-option {
+        max-width: none !important;
+        width: 100% !important;
+
+        &__btn {
+            max-width: none !important;
+        }
+    }
+
+    .calc-estimation {
+        padding: 40px 20px;
+    }
+
+    .calc-diagram {
+        margin-right: 40px;
     }
 }
 
 @media (max-width: 992px) {
-    .container {
-        padding: 0px 20px;
-    }
-    .main{
+    .main {
         &__wrapper {
             display: block;
         }
+
         &-textBlock {
             margin-bottom: 40px;
             border: none;
             padding: 0;
         }
+
+        &__title {
+            font-size: 6vw;
+        }
     }
+
+    .calc-estimation {
+        flex-direction: column;
+        padding: 30px;
+    }
+
+    .calc-diagram {
+        margin: 0;
+        margin-bottom: 35px;
+    }
+
     .article {
         padding: 15px;
         padding-bottom: 25px;
+
         &__img {
             height: 230px;
         }
+
         &__link {
             bottom: 15px;
         }
+
         &-content {
             &__text {
                 -webkit-line-clamp: 7;
             }
+
             &__title {
                 font-size: 2.6vw;
             }
@@ -39,28 +106,43 @@
 }
 
 @media (max-width: 768px) {
+    .calc {
+        &__tab {
+            font-size: 16px;
+
+            &.active {
+                font-size: 18px;
+            }
+        }
+    }
+
     .article {
         flex-direction: column;
         padding-bottom: 60px;
+
         &__img {
             height: auto;
             margin: 0 auto;
             max-width: 400px;
             width: 100%;
         }
+
         &__link {
             right: unset;
             left: 50%;
             transform: translateX(-50%);
             bottom: 30px;
         }
+
         &-content {
             &__title {
                 font-size: 24px;
             }
         }
+
         &.show {
             display: flex;
+
             .article__link {
                 bottom: 30px;
             }
@@ -68,34 +150,183 @@
     }
 }
 
+@media (max-width: 650px) {
+    .calc {
+        &-diagram {
+            width: 220px;
+            height: 220px;
+            &__value {
+                font-size: 20px;
+            }
+            &__total {
+                span {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        &-estimation {
+            &__wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+            }
+
+            &__text {
+                flex-direction: column;
+                text-align: center;
+                font-size: 14px;
+
+                span {
+                    font-size: 16px;
+                    margin: 0;
+                    margin-top: 5px;
+                }
+
+                &:nth-child(1),
+                &:nth-child(2) {
+                    &::before {
+                        top: 4px;
+                        transform: translateY(0);
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media (max-width: 576px) {
+    .lock {
+        overflow: hidden;
+    }
+    .select {
+        &-body {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(2px);
+            overflow: hidden;
+
+            &__item {
+                height: 40px;
+            }
+
+            &__scroll {
+                position: absolute;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 92%;
+                height: 215px;
+                background: $white;
+                border-radius: 20px;
+                padding: 55px 30px 15px 30px;
+                gap: 10px;
+
+                &::-webkit-scrollbar {
+                    width: 0px;
+                }
+    
+                &::-webkit-scrollbar-thumb {
+                    background: transparent;
+                }
+    
+                &::-webkit-scrollbar-track {
+                    background-color: transparent;
+                }
+
+                &::before {
+                    content: 'Срок кредита';
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    top: 22px;
+                    font-size: 18px;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+
     .main {
+        &__title {
+            font-size: 36px;
+        }
+
         &-contact {
             text-align: center;
             padding: 30px;
             padding-bottom: 40px;
+
             &__text {
                 font-size: 18px;
             }
+
             &__title {
                 margin-bottom: 20px;
                 line-height: 40px;
             }
         }
+
         &-form {
             &__input {
                 margin-bottom: 12px;
+
                 &:last-child {
                     margin-bottom: 22px;
                 }
             }
         }
     }
+
+    .calc {
+        &-content {
+            padding: 30px;
+        }
+
+        &-estimation {
+            padding: 30px 10px;
+        }
+
+        &-option {
+            margin-bottom: 15px;
+
+            &__wrapper {
+                gap: 0px;
+            }
+
+            &__input {
+                height: 40px;
+
+                input {
+                    font-size: 18px;
+                }
+            }
+
+            &__btn {
+                margin-top: 10px;
+            }
+        }
+    }
+
+    .select {
+        &-header {
+            height: 40px;
+            font-size: 18px;
+        }
+    }
+
     .article {
         padding: 0;
+
         &.show {
             padding-bottom: 0;
         }
+
         &__img {
             position: relative;
             left: -1px;
@@ -103,6 +334,7 @@
             width: 101%;
             height: auto;
         }
+
         &-content {
             padding: 20px 25px 75px 25px;
         }
@@ -111,14 +343,26 @@
 
 @media (max-width: 374px) {
     .main {
+        &__title {
+            font-size: 9vw;
+        }
+
         &-contact {
             padding: 10px;
             padding-bottom: 20px;
+
             &__title {
                 font-size: 9.2vw;
             }
         }
     }
+
+    .calc {
+        &-content {
+            padding: 15px;
+        }
+    }
+
     .article {
         &-content {
             padding: 10px;
