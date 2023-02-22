@@ -156,19 +156,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    const calcInput = document.querySelector('.calc-option__input input');
+    const calcInput = document.querySelectorAll('.calc-option__input input');
 
-    calcInput.addEventListener('keyup', function (e) {
-        if (e.keyCode < 48 || e.keyCode > 57) {
-            this.value = this.value.replace(/[^\d]/g, '');
-        }
-        else {
-            let inputValue = this.value.replace(/ /g, '');
-            var outrez = (inputValue + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
-            this.value = outrez;
-        }
+    for (let i = 0; i < calcInput.length; i++) {
+        calcInput[i].addEventListener('keyup', function (e) {
+            if (e.keyCode < 48 || e.keyCode > 57) {
+                this.value = this.value.replace(/[^\d]/g, '');
+                let outrez = (this.value + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+                this.value = outrez;
+            }
+            else {
+                let inputValue = this.value.replace(/ /g, '');
+                let outrez = (inputValue + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+                this.value = outrez;
+            }
 
-    })
+        })
+    }
 
 });
 
