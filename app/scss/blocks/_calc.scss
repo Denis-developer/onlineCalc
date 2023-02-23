@@ -35,6 +35,40 @@
         }
 
     }
+    &-tabs{
+        &_mob {
+            display: flex;
+            align-items: flex-end;
+            display: none;
+        }
+        &__current {
+            width: 80%;
+            background: $blue;
+            color: $white;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            padding-top: 17px;
+            padding-bottom: 9px;
+            border-radius: 12.7143px 12.7143px 0px 0px;
+        }
+        &__next, &__prev {
+            width: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $grey;
+            min-width: 50px;
+            height: 40px;
+            cursor: pointer;
+        }
+        &__prev {
+            border-radius: 12.7px 0px 0px 0px;
+        }
+        &__next {
+            border-radius: 0px 12.7px 0px 0px;
+        }
+    }
 
     &-option {
         width: 100%;
@@ -211,6 +245,9 @@
             }
             .calc-option__wrapper {
                 margin-bottom: 24px;
+            }
+            .calc__title_mob {
+                display: block;
             }
         }
         &.mortgage {
