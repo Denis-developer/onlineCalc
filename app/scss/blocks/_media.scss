@@ -207,7 +207,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(2px);
             overflow: hidden;
@@ -242,6 +242,7 @@
 
                 &::before {
                     content: 'Срок кредита';
+                    min-width: 142px;
                     position: absolute;
                     left: 50%;
                     transform: translateX(-50%);
