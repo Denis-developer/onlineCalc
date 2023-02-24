@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Tabs
     const tabs = document.querySelectorAll('.tabs'),
         tabsTransition = 500;
 
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    // Mobile tabs
     let mobileTabs = ["Потребительский кредит", "Ипотечный калькулятор", "Залоговый калькулятор"],
         tabPrev = document.querySelector('.calc-tabs__prev'),
         tabNext = document.querySelector('.calc-tabs__next'),
@@ -83,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     })
 
+
     // Select
     let select = function () {
         let selectHeader = document.querySelectorAll('.select-header'),
@@ -117,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     select();
 
+    // Articles show/hide text
     const showFullText = document.querySelectorAll('.article__link');
 
     for (let i = 0; i < showFullText.length; i++) {
