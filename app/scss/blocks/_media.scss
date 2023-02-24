@@ -201,6 +201,7 @@
             display: flex;
         }
     }
+    
     .select {
         &-body {
             position: fixed;
@@ -221,12 +222,15 @@
                 bottom: 20px;
                 left: 50%;
                 transform: translateX(-50%);
-                width: 92%;
+                width: 92% !important;
                 height: 215px;
                 background: $white;
                 border-radius: 20px;
                 padding: 55px 30px 15px 30px;
                 gap: 10px;
+                &.payment {
+                    height: 160px;
+                }
 
                 &::-webkit-scrollbar {
                     width: 0px;
@@ -241,11 +245,11 @@
                 }
 
                 &::before {
-                    content: 'Срок кредита';
-                    min-width: 142px;
+                    content: attr(data-name);
+                    width: 100%;
+                    text-align: center;
+                    right: 0;
                     position: absolute;
-                    left: 50%;
-                    transform: translateX(-50%);
                     top: 22px;
                     font-size: 18px;
                     font-weight: 700;

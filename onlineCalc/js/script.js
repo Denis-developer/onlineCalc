@@ -370,82 +370,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
     btnMortgage.addEventListener('click', function () {
 
-        function calculateMonthlyPaymentWithDownPayment(propertyValue, downPayment, loanTerm, interestRate) {
-            let loanAmount = propertyValue * (1 - downPayment); // сумма кредита
-            let monthlyInterestRate = interestRate / 12; // месячная процентная ставка
-            let months = loanTerm * 12; // общее количество месяцев кредита
+        function calculateMonthlyPaymentWithDownPayment(loanAmount, loanTerm, interestRate, downPayment) {
+            const monthlyInterestRate = interestRate / 12;
+            const numberOfPayments = loanTerm * 12;
+            const principal = loanAmount - downPayment;
 
-            // Вычисляем месячный аннуитетный платеж
-            let monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+            const monthlyPayment = principal * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
 
-            // Округляем до двух знаков после запятой и возвращаем результат
-            return parseFloat(monthlyPayment.toFixed(2));
+            return monthlyPayment.toFixed(2);
         }
 
-        function calculateTotalInterestWithDownPayment(propertyValue, downPayment, loanTerm, interestRate) {
-            let loanAmount = propertyValue * (1 - downPayment); // сумма кредита
-            let monthlyInterestRate = interestRate / 12; // месячная процентная ставка
-            let months = loanTerm * 12; // общее количество месяцев кредита
+        function calculateTotalInterestWithDownPayment(loanAmount, loanTerm, interestRate, downPayment) {
+            const monthlyPayment = calculateMonthlyPaymentWithDownPayment(loanAmount, loanTerm, interestRate, downPayment);
+            const numberOfPayments = loanTerm * 12;
+            const principal = loanAmount - downPayment;
 
-            // Вычисляем ежемесячный аннуитетный платеж
-            let monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+            const totalInterest = (monthlyPayment * numberOfPayments) - principal + downPayment;
 
-            // Вычисляем общую переплату по кредиту
-            let totalOverpayment = monthlyPayment * months - loanAmount;
-
-            // Округляем до двух знаков после запятой и возвращаем результат
-            return parseFloat(totalOverpayment.toFixed(2));
+            return totalInterest.toFixed(2);
         }
 
-        function calculateTotalPaymentsWithDownPayment(propertyValue, downPayment, loanTerm, interestRate) {
-            let loanAmount = propertyValue * (1 - downPayment); // сумма кредита
-            let monthlyInterestRate = interestRate / 12; // месячная процентная ставка
-            let months = loanTerm * 12; // общее количество месяцев кредита
+        function calculateTotalPaymentsWithDownPayment(loanAmount, loanTerm, interestRate, downPayment) {
+            const monthlyPayment = calculateMonthlyPaymentWithDownPayment(loanAmount, loanTerm, interestRate, downPayment);
+            const numberOfPayments = loanTerm * 12;
 
-            // Вычисляем ежемесячный аннуитетный платеж
-            let monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+            const totalPayments = monthlyPayment * numberOfPayments;
 
-            // Вычисляем общую сумму выплат
-            let totalPayments = monthlyPayment * months;
-
-            // Округляем до двух знаков после запятой и возвращаем результат
-            return parseFloat(totalPayments.toFixed(2));
+            return totalPayments.toFixed(2);
         }
 
-        function calculateInterestOverpaymentWithDownPayment(propertyValue, downPayment, loanTerm, interestRate) {
-            let loanAmount = propertyValue * (1 - downPayment); // сумма кредита
-            let monthlyInterestRate = interestRate / 12; // месячная процентная ставка
-            let months = loanTerm * 12; // общее количество месяцев кредита
+        function calculateInterestOverpaymentWithDownPayment(loanAmount, loanTerm, interestRate, downPayment) {
+            const totalPayments = calculateTotalPaymentsWithDownPayment(loanAmount, loanTerm, interestRate, downPayment);
+            const totalLoanAmount = loanAmount - downPayment;
 
-            // Вычисляем ежемесячный аннуитетный платеж
-            let monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
+            const interestOverpayment = (totalPayments - totalLoanAmount) / totalLoanAmount * 100;
 
-            // Вычисляем общую сумму выплат
-            let totalPayments = monthlyPayment * months;
-
-            // Вычисляем процент переплаты
-            let interestOverpayment = (totalPayments - loanAmount) / loanAmount * 100;
-
-            // Округляем до двух знаков после запятой и возвращаем результат
-            return parseFloat(interestOverpayment.toFixed(2));
+            return interestOverpayment.toFixed(2);
         }
 
-        function calculateTotalCostWithDownPayment(propertyValue, downPayment, loanTerm, interestRate) {
-            let loanAmount = propertyValue * (1 - downPayment); // сумма кредита
-            let monthlyInterestRate = interestRate / 12; // месячная процентная ставка
-            let months = loanTerm * 12; // общее количество месяцев кредита
+        function calculateTotalCostWithDownPayment(loanAmount, loanTerm, interestRate, downPayment) {
+            const totalInterest = loanAmount * interestRate * (loanTerm / 12); // сумма процентов за весь срок кредита
+            const totalCost = loanAmount + totalInterest - downPayment; // полная стоимость кредита
 
-            // Вычисляем ежемесячный аннуитетный платеж
-            let monthlyPayment = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -months));
-
-            // Вычисляем общую сумму выплат
-            let totalPayments = monthlyPayment * months;
-
-            // Вычисляем полную стоимость кредита
-            let totalLoanCost = totalPayments + (propertyValue * downPayment);
-
-            // Округляем до двух знаков после запятой и возвращаем результат
-            return parseFloat(totalLoanCost.toFixed(2));
+            return totalCost.toFixed(2);
         }
 
         const btnParent = this.closest('.calc-content'),
@@ -464,12 +431,12 @@ document.addEventListener('DOMContentLoaded', function () {
             btnParent.classList.add('account');
 
             textAmout.innerHTML = numberSpace(inputAmount) + " ₽";
-            textOverpay.innerHTML = numberSpace(calculateTotalInterestWithDownPayment(inputAmount, inputInitialFee, inputTerm, inputRate)) + " ₽";
-            textTotalAmount.innerHTML = numberSpace(calculateTotalPaymentsWithDownPayment(inputAmount, inputInitialFee, inputTerm, inputRate)) + " ₽";
-            textPercentOverpay.innerHTML = numberSpace(calculateInterestOverpaymentWithDownPayment(inputAmount, inputInitialFee, inputTerm, inputRate)) + " %";
+            textOverpay.innerHTML = numberSpace(calculateTotalInterestWithDownPayment(inputAmount, inputTerm, inputRate, inputInitialFee)) + " ₽";
+            textTotalAmount.innerHTML = numberSpace(calculateTotalPaymentsWithDownPayment(inputAmount, inputTerm, inputRate, inputInitialFee)) + " ₽";
+            textPercentOverpay.innerHTML = numberSpace(calculateInterestOverpaymentWithDownPayment(inputAmount, inputTerm, inputRate, inputInitialFee)) + " %";
             // textFullCost.innerHTML = numberSpace(calculateTotalCostWithDownPayment(inputAmount, inputTerm, inputRate, inputInitialFee)) + " ₽";
-            textFullCost.innerHTML = numberSpace(calculateTotalCostWithDownPayment(inputAmount, inputInitialFee, inputTerm, inputRate)) + " ₽";
-            textMonthPayment.innerHTML = numberSpace(calculateMonthlyPaymentWithDownPayment(inputAmount, inputInitialFee, inputTerm, inputRate)) + " ₽";
+            textFullCost.innerHTML = numberSpace(calculateTotalPaymentsWithDownPayment(inputAmount, inputTerm, inputRate, inputInitialFee)) + " ₽";
+            textMonthPayment.innerHTML = numberSpace(calculateMonthlyPaymentWithDownPayment(inputAmount, inputTerm, inputRate, inputInitialFee)) + " ₽";
 
             let percentDiagram = (calculateTotalInterest(inputAmount, inputTerm, inputRate) * 100 / inputAmount).toFixed(0);
             let calcDiagram = btnParent.querySelector('.calc-diagram'),
@@ -591,30 +558,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
         function calculateInterestOverPayment(loanAmount, paymentType, loanTerm, interestRate) {
-            const totalPayments = calculateTotalPayments(loanAmount, paymentType, loanTerm, interestRate); // Рассчитываем общую сумму выплат
-            const totalInterest = totalPayments - loanAmount; // Вычитаем из общей суммы выплат исходную сумму кредита
+            const totalCost = calculateTotalCost(loanAmount, paymentType, loanTerm, interestRate);
+            const interestOverPayment = totalCost - loanAmount;
+            const interestOverPaymentPercent = (interestOverPayment / loanAmount) * 100;
+            
+            // Округляем до двух знаков после запятой
+            const result = Math.round(interestOverPaymentPercent * 100) / 100;
+            
+            return result;
+          }
+          
 
-            const interestPercentage = (totalInterest / loanAmount) * 100; // Рассчитываем процент переплаты
 
-            return interestPercentage.toFixed(2); // Округляем до двух знаков после запятой
-        }
-
-
-
-        function calculateTotalCost(totalLoanAmount, paymentType, loanTerm, interestRate) {
+        function calculateTotalCost(loanAmount, paymentType, loanTerm, interestRate) {
+            const monthsInYear = 12;
             let totalCost = 0;
-            let monthlyInterestRate = interestRate / 12;
-
+            
             if (paymentType === 'Аннуитетный') {
-                let monthlyPayment = totalLoanAmount * monthlyInterestRate / (1 - (1 + monthlyInterestRate) ** (-loanTerm * 12));
-                totalCost = monthlyPayment * loanTerm * 12;
+              // Вычисляем общую сумму выплат для аннуитетного платежа
+              const totalPayments = loanTerm * monthsInYear;
+              const monthlyInterestRate = interestRate / monthsInYear / 100;
+              const monthlyPayment = loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalPayments)) / (Math.pow(1 + monthlyInterestRate, totalPayments) - 1);
+              totalCost = monthlyPayment * totalPayments;
             } else if (paymentType === 'Шаровый') {
-                totalCost = totalLoanAmount + totalLoanAmount * interestRate * loanTerm;
+              // Вычисляем общую сумму выплат для шарового платежа
+              const totalPayments = loanTerm;
+              const monthlyInterestRate = interestRate / monthsInYear / 100;
+              let remainingLoanAmount = loanAmount;
+              
+              for (let i = 0; i < totalPayments; i++) {
+                const monthlyInterest = remainingLoanAmount * monthlyInterestRate;
+                const monthlyTotal = loanAmount / totalPayments + monthlyInterest;
+                totalCost += monthlyTotal;
+                remainingLoanAmount -= loanAmount / totalPayments;
+              }
             }
-
-            return totalCost.toFixed(2);
-        }
-
+            
+            // Округляем до двух знаков после запятой
+            totalCost = Math.round(totalCost * 100) / 100;
+            
+            return totalCost;
+          }
+          
 
         const btnParent = this.closest('.calc-content'),
             inputAmount = +btnParent.querySelector('input').value.replace(/ /g, ''),
@@ -634,9 +619,9 @@ document.addEventListener('DOMContentLoaded', function () {
             textAmout.innerHTML = numberSpace(inputAmount) + " ₽";
             textOverpay.innerHTML = numberSpace(calculateTotalInterest2(inputAmount, inputPaymentType, inputTerm, inputRate)) + " ₽";
             textTotalAmount.innerHTML = numberSpace(calculateTotalPayments(inputAmount, inputPaymentType, inputTerm, inputRate)) + " ₽";
-            textPercentOverpay.innerHTML = numberSpace(calculateInterestOverPayment(inputAmount, inputPaymentType, inputTerm, inputRate)) + " %";
+            textPercentOverpay.innerHTML = numberSpace(calculateInterestOverPayment(inputAmount, inputPaymentType, inputTerm, inputTerm*12)) + " %";
             // textFullCost.innerHTML = numberSpace(calculateTotalCost(inputAmount, inputPaymentType, inputTerm, inputRate)) + " ₽";
-            textFullCost.innerHTML = numberSpace(calculateTotalCost(inputAmount, inputPaymentType, inputTerm, inputRate)) + " ₽";
+            textFullCost.innerHTML = numberSpace(calculateTotalPayments(inputAmount, inputPaymentType, inputTerm, inputRate)) + " ₽";
             textMonthPayment.innerHTML = numberSpace(calculateMonthlyPayment(inputAmount, inputPaymentType, inputTerm, inputRate)) + " ₽";
 
             let percentDiagram = (calculateTotalInterest(inputAmount, inputTerm, inputRate) * 100 / inputAmount).toFixed(0);
