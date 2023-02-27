@@ -89,6 +89,9 @@ function build(done){
 	const buildImg = gulp.src('app/img/**/*')
 	.pipe(gulp.dest('dist/img/'));
 
+	const buildIco = gulp.src('app/favicon/**/*.*')
+	.pipe(gulp.dest('dist/favicon/'));
+
 	done();
 }
 
