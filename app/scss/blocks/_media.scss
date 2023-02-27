@@ -369,6 +369,11 @@
                 font-size: 9.2vw;
             }
         }
+        &-form {
+            &__message {
+                top: 10px;
+            }
+        }
     }
 
     .calc {
