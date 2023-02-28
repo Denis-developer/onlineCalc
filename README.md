@@ -1,4 +1,4 @@
-# Кредитный калькулятор онлайн
+# Loan calculator online
 
 [Landing Page](https://denis-developer.github.io/onlineCalc/).
 
