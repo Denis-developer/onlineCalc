@@ -57,16 +57,11 @@
   position: relative;
   top: 15px;
   text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  transition: all 0.4s;
+  display: none;
 }
 
 .main-form__message.active {
-  visibility: visible;
-  opacity: 1;
+  display: block;
 }
 
 .main-form__input {

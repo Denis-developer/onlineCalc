@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     $(this).find("input").val("");
                     $('form').trigger('reset');
                     $('form input').removeClass('success');
-                    $('.form-main__message').addClass('active');
+                    $('.main-form__message').addClass('active');
                 });
                 return false;
             }
